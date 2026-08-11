@@ -16,14 +16,38 @@ local stats = {
 }
 
 local function formatNumber(num)
-    if type(num) == "number" then
-        return tostring(num):reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,", "")
+    if type(num) \~= "number" then
+        return tostring(num)
     end
+
+    local absNum = math.abs(num)
+    local suffixes = {
+        {1e18, "Qi"}, -- Quintillion
+        {1e15, "Qa"}, -- Quadrillion
+        {1e12, "T"},  -- Trillion
+        {1e9,  "B"},  -- Billion
+        {1e6,  "M"},  -- Million
+        {1e3,  "K"},  -- Thousand
+    }
+
+    for _, data in ipairs(suffixes) do
+        local threshold, suffix = data[1], data[2]
+        if absNum >= threshold then
+            local value = num / threshold
+            -- Keep 1 decimal place only when needed
+            if value == math.floor(value) then
+                return string.format("%d%s", value, suffix)
+            else
+                return string.format("%.1f%s", value, suffix)
+            end
+        end
+    end
+
     return tostring(num)
 end
 
 local message = string.format([[
-⚔️ <b>Kherna Muscle Legends</b> ⚔️
+⚔️ <b>KRA Muscle Legends</b> ⚔️
 
 👤 <b>Username:</b> %s
 💪 <b>Strength:</b> %s
