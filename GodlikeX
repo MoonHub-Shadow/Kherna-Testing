@@ -1,4 +1,4 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/godlikeinvincible-cmd/Kherna/refs/heads/main/Kherna%20Elerium%20ui", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/MoonHub-Shadow/Kherna-Ui/refs/heads/main/GodlikeX"))()
 
 local window = library:AddWindow("KHERNA PUBLIC", {
     main_color = Color3.fromRGB(76, 0, 130),
@@ -56,8 +56,9 @@ introTab:AddButton("Support us ❤️", function()
         Duration = 3
     })
 end)
-        
-local mainTab = window:AddTab("Main")
+
+
+local mainTab = window:AddTabNeon("Main")
 
 local Label = mainTab:AddLabel("User Settings ⚙️")
 
@@ -439,6 +440,7 @@ timeDropdown:Add("Night")
 
 
 
+
 mainTab:AddButton("Anti Afk", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/godlikeinvincible-cmd/Kherna/refs/heads/main/Kherna%20Hub%20Anti%20Afk", true))()
 end)
@@ -528,7 +530,7 @@ Killer:AddSwitch("Auto Good Karma", function(bool)
 
                 if rightHand and leftHand then
                     for _, target in ipairs(Players:GetPlayers()) do
-                        if target \~= LocalPlayer and target.Character then
+                        if target ~= LocalPlayer and target.Character then
                             local evilKarma = target:FindFirstChild("evilKarma")
                             local goodKarma = target:FindFirstChild("goodKarma")
 
@@ -567,7 +569,7 @@ Killer:AddSwitch("Auto Bad Karma", function(bool)
 
                 if rightHand and leftHand then
                     for _, target in ipairs(Players:GetPlayers()) do
-                        if target \~= LocalPlayer and target.Character then
+                        if target ~= LocalPlayer and target.Character then
                             local evilKarma = target:FindFirstChild("evilKarma")
                             local goodKarma = target:FindFirstChild("goodKarma")
 
@@ -610,7 +612,7 @@ Killer:AddSwitch("Auto Kill", function(bool)
 
             if rightHand and leftHand then
                 for _, target in ipairs(Players:GetPlayers()) do
-                    if target \~= LocalPlayer and target.Character then
+                    if target ~= LocalPlayer and target.Character then
                         local isWhitelisted = false
                         for _, name in ipairs(_G.whitelistedPlayers) do
                             if name:lower() == target.Name:lower() then
@@ -652,7 +654,7 @@ Killer:AddSwitch("Auto Whitelist Friends", function(state)
 
     if state then
         for _, player in ipairs(Players:GetPlayers()) do
-            if player \~= LocalPlayer and LocalPlayer:IsFriendsWith(player.UserId) then
+            if player ~= LocalPlayer and LocalPlayer:IsFriendsWith(player.UserId) then
                 if not table.find(_G.whitelistedPlayers, player.Name) then
                     table.insert(_G.whitelistedPlayers, player.Name)
                     print(player.Name .. " (amigo) aÃ±adido a Whitelist")
@@ -661,7 +663,7 @@ Killer:AddSwitch("Auto Whitelist Friends", function(state)
         end
 
         Players.PlayerAdded:Connect(function(player)
-            if friendWhitelistActive and player \~= LocalPlayer and LocalPlayer:IsFriendsWith(player.UserId) then
+            if friendWhitelistActive and player ~= LocalPlayer and LocalPlayer:IsFriendsWith(player.UserId) then
                 if not table.find(_G.whitelistedPlayers, player.Name) then
                     table.insert(_G.whitelistedPlayers, player.Name)
                     print(player.Name .. " (amigo) aÃ±adido a Whitelist")
@@ -737,14 +739,14 @@ end)
 
 
 for _, player in ipairs(Players:GetPlayers()) do
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         whitelistDropdown:Add(player.DisplayName)
         whitelistDropdownItems[player.Name] = player.DisplayName
     end
 end
 
 Players.PlayerAdded:Connect(function(player)
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         whitelistDropdown:Add(player.DisplayName)
         whitelistDropdownItems[player.Name] = player.DisplayName
     end
@@ -820,14 +822,14 @@ Killer:AddButton("Remove Target", function()
 end)
 
 for _, player in ipairs(Players:GetPlayers()) do
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         targetDropdown:Add(player.DisplayName)
         targetDropdownItems[player.Name] = player.DisplayName
     end
 end
 
 Players.PlayerAdded:Connect(function(player)
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         targetDropdown:Add(player.DisplayName)
         targetDropdownItems[player.Name] = player.DisplayName
     end
@@ -874,7 +876,7 @@ Killer:AddSwitch("Kill Target", function(state)
 
                     for _, name in ipairs(targetPlayerNames) do
                         local target = Players:FindFirstChild(name)
-                        if target and target \~= LocalPlayer and target.Character then
+                        if target and target ~= LocalPlayer and target.Character then
                             local root = target.Character:FindFirstChild("HumanoidRootPart")
                             local hum = target.Character:FindFirstChild("Humanoid")
                             if root and hum and hum.Health > 0 then
@@ -908,21 +910,21 @@ local spyTargetDropdown = Killer:AddDropdown("Select Target", function(displayNa
 end)
 
 for _, player in ipairs(Players:GetPlayers()) do
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         spyTargetDropdown:Add(player.DisplayName)
         spyTargetDropdownItems[player.Name] = player.DisplayName
     end
 end
 
 Players.PlayerAdded:Connect(function(player)
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         spyTargetDropdown:Add(player.DisplayName)
         spyTargetDropdownItems[player.Name] = player.DisplayName
     end
 end)
 
 Players.PlayerRemoving:Connect(function(player)
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         spyTargetDropdownItems[player.Name] = nil
         spyTargetDropdown:Clear()
         for _, displayName in pairs(spyTargetDropdownItems) do
@@ -941,7 +943,7 @@ Killer:AddSwitch("Spectate", function(bool)
     task.spawn(function()
         while spying do
             local target = Players:FindFirstChild(targetPlayerName)
-            if target and target \~= LocalPlayer then
+            if target and target ~= LocalPlayer then
                 local humanoid = target.Character and target.Character:FindFirstChild("Humanoid")
                 if humanoid then
                     workspace.CurrentCamera.CameraSubject = humanoid
@@ -1200,7 +1202,7 @@ Killer:AddSwitch("Auto Punch [Block animation]", function(state)
 					end
 					task.wait(0.05)
 				else
-					if punch.Parent \~= char then
+					if punch.Parent ~= char then
 						punch.Parent = char
 					end
 
@@ -1325,7 +1327,7 @@ local function followPlayer(targetPlayer)
 end
 
 local followDropdown = Killer:AddDropdown("Follow Target", function(selectedDisplayName)
-    if selectedDisplayName and selectedDisplayName \~= "" then
+    if selectedDisplayName and selectedDisplayName ~= "" then
         local target = nil
         for _, plr in ipairs(Players:GetPlayers()) do
             if plr.DisplayName == selectedDisplayName then
@@ -1344,13 +1346,13 @@ local followDropdown = Killer:AddDropdown("Follow Target", function(selectedDisp
 end)
 
 for _, player in ipairs(Players:GetPlayers()) do
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         followDropdown:Add(player.DisplayName)
     end
 end
 
 Players.PlayerAdded:Connect(function(player)
-    if player \~= LocalPlayer then
+    if player ~= LocalPlayer then
         followDropdown:Add(player.DisplayName)
     end
 end)
@@ -1358,7 +1360,7 @@ end)
 Players.PlayerRemoving:Connect(function(player)
     followDropdown:Clear()
     for _, plr in ipairs(Players:GetPlayers()) do
-        if plr \~= LocalPlayer then
+        if plr ~= LocalPlayer then
             followDropdown:Add(plr.DisplayName)
         end
     end
@@ -1785,7 +1787,7 @@ local function forceEquipPunch()
 
     local punch = backpack:FindFirstChild("Punch") or character:FindFirstChild("Punch")
     if punch then
-        if punch.Parent \~= character then
+        if punch.Parent ~= character then
             punch.Parent = character
         end
         local attackTime = punch:FindFirstChild("attackTime")
@@ -1962,7 +1964,7 @@ local function forceEquipPunch()
 
     local punch = backpack:FindFirstChild("Punch") or character:FindFirstChild("Punch")
     if punch then
-        if punch.Parent \~= character then
+        if punch.Parent ~= character then
             punch.Parent = character
         end
         local attackTime = punch:FindFirstChild("attackTime")
@@ -2135,7 +2137,7 @@ local function forceEquipPunch()
 
     local punch = backpack:FindFirstChild("Punch") or character:FindFirstChild("Punch")
     if punch then
-        if punch.Parent \~= character then
+        if punch.Parent ~= character then
             punch.Parent = character
         end
         local attackTime = punch:FindFirstChild("attackTime")
@@ -2309,7 +2311,7 @@ local function forceEquipPunch()
 
     local punch = backpack:FindFirstChild("Punch") or character:FindFirstChild("Punch")
     if punch then
-        if punch.Parent \~= character then
+        if punch.Parent ~= character then
             punch.Parent = character
         end
         local attackTime = punch:FindFirstChild("attackTime")
@@ -3144,7 +3146,7 @@ local function updateAdvancedStats(targetPlayer)
 end
 task.spawn(function()
     while true do
-        updateAdvancedStats(playerToInspect) -- playerToInspect should be set elsewhere
+        updateAdvancedStats(playerToInspect) 
         task.wait(0.1)
     end
 end)
@@ -3157,9 +3159,6 @@ end)
 
 
 local miscTab = window:AddTab("Misc")
-
-
-
 
 local teleport = miscTab:AddFolder("Teleports")
 
@@ -3246,6 +3245,19 @@ teleport:AddButton("Brawl Regular", function()
     local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
     humanoidRootPart.CFrame = CFrame.new(-1849, 20, -6335)
 end)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 local opFolder = miscTab:AddFolder("Optimisation")
